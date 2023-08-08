@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+
+bool simulateNFA(char *input) {
+    int currentState = 0;
+
+    while (*input != '\0') {
+        switch (currentState) {
+            case 0:
+                if (*input == 'b')
+                    currentState = 1;
+                else
+                    currentState = 0;
+                break;
+            case 1:
+                if (*input == 'a')
+                    currentState = 2;
+                else if (*input != 'b')
+                    currentState = 0;
+                break;
+            case 2:
+                if (*input != 'a')
+                    currentState = 0;
+                break;
+        }
+        input++;
+    }
+
+    return currentState == 2;
+}
+
+int main() {
+    char input[100];
+    printf("Enter a string: ");
+    scanf("%s", input);
+
+    if (simulateNFA(input))
+        printf("String accepted.\n");
+    else
+        printf("String rejected.\n");
+
+    return 0;
+}
