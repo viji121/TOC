@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+
+
+bool isCFGString(char str[]) {
+    int len = strlen(str);
+
+    
+    if (len == 0) {
+        return true;
+    }
+
+    
+    if (str[0] == '0' && str[len - 1] == '1') {
+        
+        return isCFGString(str + 1) && isCFGString(str + len - 1);
+    }
+
+    return false;
+}
+
+int main() {
+    char inputStr[100];
+
+    printf("Enter a string: ");
+    scanf("%s", inputStr);
+
+    if (isCFGString(inputStr)) {
+        printf("The given string belongs to the language defined by the CFG.\n");
+    } else {
+        printf("The given string does not belong to the language defined by the CFG.\n");
+    }
+
+    return 0;
+}
