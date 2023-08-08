@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+
+
+int belongsToCFG(char *str) {
+    int len = strlen(str);
+
+    
+    if (len == 0) {
+        return 1;
+    }
+
+    
+    if (str[0] == '0' && str[len - 1] == '1') {
+        // Check the middle part of the string
+        int i;
+        for (i = 1; i < len - 1; i++) {
+            if (str[i] != '0') {
+                // If any character in the middle is not '0', then it doesn't belong to the language
+                return 0;
+            }
+        }
+
+        // If the middle part only consists of '0', check if the string belongs to the language defined by A
+        return belongsToCFG(str + 1);
+    }
+
+    return 0; // If the string doesn't match the grammar, it doesn't belong to the language
+}
+
+int main() {
+    char str[100];
+
+    printf("Enter a string: ");
+    scanf("%s", str);
+
+    if (belongsToCFG(str)) {
+        printf("The string belongs to the language defined by the CFG.\n");
+    } else {
+        printf("The string does not belong to the language defined by the CFG.\n");
+    }
+
+    return 0;
+}
